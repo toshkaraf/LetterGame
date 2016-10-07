@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Basket : MonoBehaviour
 {
 
-    public float speed = 100f;
-    private Rigidbody2D myBody;
+    public float speed = 0.1f;
+    private BoxCollider2D boxCollider;
 
     void Awake()
     {
-        myBody = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void FixedUpdate()
@@ -19,15 +20,11 @@ public class Basket : MonoBehaviour
 
     void HandleKeyboard()
     {
-        float forceX = 0f;
 
         float h = Input.GetAxisRaw("Horizontal");
 
-        if (h > 0) forceX = speed;
-        else if (h < 0) forceX = -speed;
-
-        myBody.AddForce(new Vector2(forceX, 0));
-        //     transform.position.x = ;
+        if (h > 0) transform.position = new Vector2(Mathf.Clamp(transform.position.x + speed,-GameInfo.screenBounds.x + boxCollider.size.x/2, GameInfo.screenBounds.x - boxCollider.size.x / 2), transform.position.y);
+        else if (h < 0) transform.position = new Vector2(Mathf.Clamp(transform.position.x - speed, -GameInfo.screenBounds.x + boxCollider.size.x / 2, GameInfo.screenBounds.x - boxCollider.size.x / 2), transform.position.y);
 
     }
 
