@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class EggsManager : MonoBehaviour
 {
@@ -11,10 +12,11 @@ public class EggsManager : MonoBehaviour
     private float maxX;
     private int controllX = 0;
     private int eggCounter = -1;
-    private float startY = 6;
+    private float startY = 5.8f;
 
     void Awake()
     {
+        SetEggsActifeFalse();
         Shuffle(eggs);
         SetMinAndMaxX();
         SpawnEgg();
@@ -26,8 +28,6 @@ public class EggsManager : MonoBehaviour
 
     void Update()
     {
-        print(eggCounter + "---" + eggs[eggCounter].transform.position.y);
-        print(startY - distanceBetweenEggs);
         if (eggs[eggCounter].transform.position.y < startY - distanceBetweenEggs) SpawnEgg();
     }
 
@@ -38,27 +38,25 @@ public class EggsManager : MonoBehaviour
 
         if (controllX == 0)
         {
-            temp.x = Random.Range(0, maxX);
+            temp.x = UnityEngine.Random.Range(0, maxX);
             controllX = 1;
         }
         else if (controllX == 1)
         {
-            temp.x = Random.Range(0, minX);
+            temp.x = UnityEngine.Random.Range(0, minX);
             controllX = 2;
         }
         else if (controllX == 2)
         {
-            temp.x = Random.Range(1.0f, maxX);
+            temp.x = UnityEngine.Random.Range(1.0f, maxX);
             controllX = 3;
         }
         else if (controllX == 3)
         {
 
-            temp.x = Random.Range(-1.0f, minX);
+            temp.x = UnityEngine. Random.Range(-1.0f, minX);
             controllX = 0;
         }
-
-        print(eggCounter + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         if (eggCounter == eggs.Length - 1)
         {
@@ -66,8 +64,9 @@ public class EggsManager : MonoBehaviour
             Shuffle(eggs);
         }
         else eggCounter++;
-        eggs[eggCounter].transform.position = new Vector2(temp.x, startY);
         eggs[eggCounter].SetActive(true);
+        eggs[eggCounter].transform.position = new Vector2(temp.x, startY);
+        
     }
 
     void SetMinAndMaxX()
@@ -95,6 +94,12 @@ public class EggsManager : MonoBehaviour
             array[i] = array[random];
             array[random] = temp;
         }
+    }
+
+    private void SetEggsActifeFalse()
+    {
+        foreach (GameObject egg in eggs)
+            egg.SetActive(false);
     }
 
 }
