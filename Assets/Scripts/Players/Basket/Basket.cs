@@ -23,8 +23,8 @@ public class Basket : MonoBehaviour
 
         float h = Input.GetAxisRaw("Horizontal");
 
-        if (h > 0) transform.position = new Vector2(Mathf.Clamp(transform.position.x + speed,-GameInfo.screenBounds.x + boxCollider.size.x/2, GameInfo.screenBounds.x - boxCollider.size.x / 2), transform.position.y);
-        else if (h < 0) transform.position = new Vector2(Mathf.Clamp(transform.position.x - speed, -GameInfo.screenBounds.x + boxCollider.size.x / 2, GameInfo.screenBounds.x - boxCollider.size.x / 2), transform.position.y);
+        if (h > 0) transform.position = new Vector2(Mathf.Clamp(transform.position.x + speed * Time.deltaTime,-GameInfo.screenBounds.x + boxCollider.size.x/2, GameInfo.screenBounds.x - boxCollider.size.x / 2), transform.position.y);
+        else if (h < 0) transform.position = new Vector2(Mathf.Clamp(transform.position.x - speed * Time.deltaTime, -GameInfo.screenBounds.x + boxCollider.size.x / 2, GameInfo.screenBounds.x - boxCollider.size.x / 2), transform.position.y);
 
     }
 

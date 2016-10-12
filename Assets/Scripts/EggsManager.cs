@@ -77,7 +77,6 @@ public class EggsManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D target)
     {
-
         print("YAY!");
         if (target.tag == "Egg")
         {
